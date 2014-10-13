@@ -13,20 +13,29 @@ import java.util.logging.Logger;
  * @author callmebigpoppa22
  */
 public class MailReader {
-
+    
     private final String filePath;
-
+    
     public MailReader(String filePath) {
         this.filePath = filePath;
     }
-
+    
     public String[] readDomains() {
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(filePath));
             ArrayList<String> domainList = new ArrayList<>();
-            reader.close();
-            return null;
+            while (true) {
+                reader.close();
+                String line = reader.readLine();
+                if (line == null) {
+                    break;
+                }
+                if (line.contains("@")) {
+                    domainList.add(line.split("@")[1]);
+                }
+            }
+            return domainList.toArray(new String[domainList.size()]);
         } catch (IOException ex) {
             try {
                 reader.close();
