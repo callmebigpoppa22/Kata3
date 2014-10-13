@@ -10,7 +10,7 @@ public class HistogramBuilder<Type> {
         Histogram<Type> histogram = new Histogram<>();
         for (Type type : types) {
             if (histogram.containsKey(type)) {
-                histogram.put(type, histogram.get(type));
+                histogram.put(type, histogram.get(type) + 1);
             } else {
                 histogram.put(type, 1);
             }
